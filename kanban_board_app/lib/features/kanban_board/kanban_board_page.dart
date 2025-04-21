@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'components/board_card.dart';
 import 'components/board_footer.dart';
+import 'logic/board_cubit.dart';
 import 'logic/card_state.dart';
 import 'extensions.dart';
 
@@ -47,7 +48,7 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
     super.initState();
     boardController = AppFlowyBoardScrollController();
 
-    injector.use<KanbanBoardRepository>().getBoardData().then((groupData) {
+    injector.use<BoardCubit>().loadData().then((groupData) {
       for (var group in groupData) {
         controller.addGroup(group);
       }
