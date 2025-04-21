@@ -1,6 +1,3 @@
-import 'package:kanban_board_app/features/app/app_module.dart';
-import 'package:kanban_board_app/features/events/event_module.dart';
-import 'package:kanban_board_app/features/events/pages/event_list_page.dart';
 import 'package:kanban_board_app/features/kanban_board/kanban_board_page.dart';
 import 'package:kanban_board_app/i18n/translations.g.dart';
 import 'package:flutter/material.dart';

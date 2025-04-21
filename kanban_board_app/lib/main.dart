@@ -1,6 +1,4 @@
 import 'package:kanban_board_app/features/app/app_module.dart';
-import 'package:kanban_board_app/features/app/pages/initial_page.dart';
-import 'package:kanban_board_app/features/events/event_module.dart';
 import 'package:kanban_board_app/features/kanban_board/kanban_board_page.dart';
 import 'package:kanban_board_app/i18n/translations.g.dart';
 import 'package:kanban_board_design/kanban_board_design.dart';
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return VaderApp(
-      modules: [AppModule(), EventModule(), KanbanBoardModule()],
+      modules: [AppModule(), KanbanBoardModule()],
       theme: ExampleTheme(),
       isDebug: false,
       entrypoint: KanbanBoardRoute().location,
