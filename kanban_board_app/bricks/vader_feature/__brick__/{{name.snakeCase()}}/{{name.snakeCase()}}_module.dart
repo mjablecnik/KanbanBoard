@@ -1,0 +1,18 @@
+import 'package:{{package.snakeCase()}}_app/features/app/app_module.dart';
+import 'package:{{package.snakeCase()}}_app/features/{{name.snakeCase()}}/{{name.snakeCase()}}_page.dart';
+import 'package:{{package.snakeCase()}}_app/features/{{name.snakeCase()}}/{{name.snakeCase()}}_repository.dart';
+import 'package:flutter/widgets.dart';
+import 'package:vader_app/vader_app.dart';
+
+
+class {{name.pascalCase()}}Module extends AppModule {
+  @override
+  List<RouteBase> get routes => [${{name.pascalCase()}}Route];
+
+  @override
+  Injector? get services {
+    return super.services!
+      ..add({{name.pascalCase()}}Repository.new)
+      ..commit();
+  }
+}
