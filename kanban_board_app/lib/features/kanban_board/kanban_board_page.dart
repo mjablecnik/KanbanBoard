@@ -40,6 +40,7 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
     },
     onMoveGroupItemToGroup: (fromGroupId, fromIndex, toGroupId, toIndex) {
       debugPrint('Move $fromGroupId:$fromIndex to $toGroupId:$toIndex');
+      injector.use<KanbanBoardRepository>().changeItemGroup(fromGroupId, fromIndex, toGroupId, toIndex);
     },
   );
 

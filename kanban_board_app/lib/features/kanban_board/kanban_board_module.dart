@@ -12,7 +12,7 @@ class KanbanBoardModule extends AppModule {
   @override
   Injector? get services {
     return super.services!
-      ..add(KanbanBoardRepository.new)
+      ..addSingleton(KanbanBoardRepository.new)
       //..add(BoardCubit.new)
       ..commit();
   }

@@ -42,7 +42,7 @@ class _BoardCardState extends State<BoardCard> {
     isEditing = false;
     final newCard = CardState(id: widget.item.id, title: value, subtitle: widget.item.subtitle);
     widget.controller.updateGroupItem(widget.group.id, newCard);
-    //injector.use<KanbanBoardRepository>().updateItem(widget.group.id, newCard);
+    injector.use<KanbanBoardRepository>().updateItem(widget.group.id, newCard);
     setState(() => title = value);
   }
 

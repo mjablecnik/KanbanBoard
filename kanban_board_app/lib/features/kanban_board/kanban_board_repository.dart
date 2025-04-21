@@ -9,13 +9,6 @@ class KanbanBoardRepository extends Repository {
 
   Map<String, dynamic> boardGroupDB = {
     "boards": [
-      //{
-      //  "id": "Backlog",
-      //  "name": "Backlog",
-      //  "items": [
-      //    {"title": "Card 20", "id": "20"},
-      //  ],
-      //},
       {
         "id": "Todo",
         "name": "Todo",
@@ -79,8 +72,14 @@ class KanbanBoardRepository extends Repository {
   Future<void> updateItem(String groupId, CardState item) async {
     final group = boardGroupDB['boards'].firstWhere((element) => element['id'] == groupId);
     final index = group['items'].indexWhere((element) => element['id'] == item.id);
-    print(group['items'][index]);
     group['items'][index]['title'] = item.title;
     //group['items'][index]['subtitle'] = item.subtitle ?? group['items'][index]['subtitle'];
+  }
+
+  changeItemGroup(String fromGroupId, int fromIndex, String toGroupId, int toIndex) {
+    final fromGroupIndex = boardGroupDB['boards'].indexWhere((element) => element['id'] == fromGroupId);
+    final toGroupIndex = boardGroupDB['boards'].indexWhere((element) => element['id'] == toGroupId);
+    final item = boardGroupDB['boards'][fromGroupIndex]['items'].removeAt(fromIndex);
+    boardGroupDB['boards'][toGroupIndex]['items'].insert(toIndex, item);
   }
 }
