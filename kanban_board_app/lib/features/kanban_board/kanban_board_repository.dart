@@ -3,55 +3,74 @@ import 'package:kanban_board_app/features/kanban_board/logic/card_state.dart';
 import 'package:vader_app/vader_app.dart';
 
 class KanbanBoardRepository extends Repository {
-  KanbanBoardRepository({
-    required super.httpClient,
-    required super.storageClient,
-  });
+  KanbanBoardRepository({required super.httpClient, required super.storageClient});
+
+  Map<String, dynamic> boardGroupDB = {
+    "boards": [
+      //{
+      //  "id": "Backlog",
+      //  "name": "Backlog",
+      //  "items": [
+      //    {"title": "Card 20"},
+      //  ],
+      //},
+      {
+        "id": "Todo",
+        "name": "Todo",
+        "items": [
+          {"title": "Card 1"},
+          {"title": "Card 2"},
+          {"title": "Card 3", "subtitle": 'Aug 1, 2020 4:05 PM'},
+          {"title": "Card 4"},
+          {"title": "Card 5"},
+        ],
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "items": [
+          {"title": "Card 6"},
+        ],
+      },
+      {
+        "id": "Pending",
+        "name": "Pending",
+        "items": [
+          {"title": "Card 9", "subtitle": 'Aug 1, 2020 4:05 PM'},
+          {"title": "Card 10"},
+          {"title": "Card 11"},
+          {"title": "Card 12"},
+        ],
+      },
+      {
+        "id": "Review",
+        "name": "Review",
+        "items": [
+          {"title": "Card 18"},
+          {"title": "Card 17"},
+          {"title": "Card 16"},
+        ],
+      },
+      {
+        "id": "Done",
+        "name": "Done",
+        "items": [
+          {"title": "Card 19"},
+          {"title": "Card 15"},
+          {"title": "Card 14"},
+        ],
+      },
+    ],
+  };
 
   Future<List<AppFlowyGroupData>> getBoardData() async {
-    final group1 = AppFlowyGroupData(
-      id: "To Do",
-      name: "To Do",
-      items: [
-        CardState(title: "Card 1"),
-        CardState(title: "Card 2"),
-        CardState(title: "Card 3", subtitle: 'Aug 1, 2020 4:05 PM'),
-        CardState(title: "Card 4"),
-        CardState(title: "Card 5"),
-      ],
-    );
-
-    final group2 = AppFlowyGroupData(
-      id: "In Progress",
-      name: "In Progress",
-      items: <AppFlowyGroupItem>[
-        CardState(title: "Card 6"),
-        CardState(title: "Card 7", subtitle: 'Aug 1, 2020 4:05 PM'),
-        CardState(title: "Card 8", subtitle: 'Aug 1, 2020 4:05 PM'),
-      ],
-    );
-
-    final group3 = AppFlowyGroupData(
-      id: "Pending",
-      name: "Pending",
-      items: <AppFlowyGroupItem>[
-        CardState(title: "Card 9"),
-        CardState(title: "Card 10", subtitle: 'Aug 1, 2020 4:05 PM'),
-        CardState(title: "Card 11"),
-        CardState(title: "Card 12"),
-      ],
-    );
-    final group4 = AppFlowyGroupData(
-      id: "Canceled",
-      name: "Canceled",
-      items: <AppFlowyGroupItem>[CardState(title: "Card 13"), CardState(title: "Card 14"), CardState(title: "Card 15")],
-    );
-    final group5 = AppFlowyGroupData(
-      id: "Urgent",
-      name: "Urgent",
-      items: <AppFlowyGroupItem>[CardState(title: "Card 14"), CardState(title: "Card 15")],
-    );
-
-    return [group1, group2, group3, group4, group5];
+    return [
+      for (var group in boardGroupDB['boards'])
+        AppFlowyGroupData(
+          id: group['id'],
+          name: group['name'],
+          items: [for (var item in group['items']) CardState(title: item['title'], subtitle: item['subtitle'])],
+        ),
+    ];
   }
 }
