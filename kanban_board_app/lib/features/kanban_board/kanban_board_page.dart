@@ -29,6 +29,8 @@ class KanbanBoardPage extends StatefulWidget {
 }
 
 class _KanbanBoardPageState extends State<KanbanBoardPage> {
+
+  late AppFlowyBoardScrollController boardController;
   final AppFlowyBoardController controller = AppFlowyBoardController(
     onMoveGroup: (fromGroupId, fromIndex, toGroupId, toIndex) {
       debugPrint('Move item from $fromIndex to $toIndex');
@@ -41,15 +43,13 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
     },
   );
 
-  late AppFlowyBoardScrollController boardController;
-
   @override
   void initState() {
     super.initState();
     boardController = AppFlowyBoardScrollController();
 
-    injector.use<BoardCubit>().loadData().then((groupData) {
-      for (var group in groupData) {
+    injector.use<KanbanBoardRepository>().getBoardData().then((value) {
+      for (var group in value) {
         controller.addGroup(group);
       }
     });
@@ -74,7 +74,7 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
             return BoardHeader(controller: controller, data: columnData, themeConfig: config);
           },
           cardBuilder: (context, group, groupItem) {
-            return BoardCard(key: ValueKey(groupItem.id), state: groupItem as CardState);
+            return BoardCard(key: ValueKey(groupItem.id), controller: controller, group: group, item: groupItem as CardState);
           },
           footerBuilder: (context, columnData) {
             return BoardFooter(scrollController: boardController, data: columnData, themeConfig: config);

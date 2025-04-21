@@ -1,11 +1,10 @@
 import 'package:appflowy_board/appflowy_board.dart';
 
 class CardState extends AppFlowyGroupItem {
-  CardState({required this.title, this.subtitle});
-
-  final String title;
-  final String? subtitle;
+  CardState({required this.id, required this.title, this.subtitle});
 
   @override
-  String get id => title;
+  final String id;
+  final String title;
+  final String? subtitle;
 }

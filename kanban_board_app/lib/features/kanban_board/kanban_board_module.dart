@@ -13,7 +13,7 @@ class KanbanBoardModule extends AppModule {
   Injector? get services {
     return super.services!
       ..add(KanbanBoardRepository.new)
-      ..add(BoardCubit.new)
+      //..add(BoardCubit.new)
       ..commit();
   }
 }

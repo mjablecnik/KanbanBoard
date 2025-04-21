@@ -26,6 +26,7 @@ dependencies:
   # Package dependencies:
   slang: ^4.5.0
   slang_flutter: ^4.5.0
+  tempoid: ^0.4.0
   appflowy_board: ^0.1.2
 
 

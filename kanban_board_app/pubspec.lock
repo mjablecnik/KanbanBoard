@@ -953,6 +953,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.14"
+  tempoid:
+    dependency: "direct main"
+    description:
+      name: tempoid
+      sha256: "4e27ec1435a9249c5765744410b94e2750cd6fec6810e41a97030322af68f14f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   term_glyph:
     dependency: transitive
     description:
