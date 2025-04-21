@@ -1,52 +1,30 @@
 import 'package:appflowy_board/appflowy_board.dart';
 import 'package:flutter/material.dart';
 
-import 'text_item.dart';
+import '../logic/card_state.dart';
 
 class BoardCard extends StatelessWidget {
-  const BoardCard({super.key, required this.groupItem});
+  const BoardCard({super.key, required this.state});
 
-  final AppFlowyGroupItem groupItem;
+  final CardState state;
 
   @override
   Widget build(BuildContext context) {
-    return AppFlowyGroupCard(key: ValueKey(groupItem.id), child: _buildCard(groupItem));
-  }
-
-  Widget _buildCard(AppFlowyGroupItem item) {
-    if (item is TextItem) {
-      return Align(
+    return AppFlowyGroupCard(
+      key: ValueKey(state.id),
+      child: Align(
         alignment: Alignment.centerLeft,
-        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30), child: Text(item.s)),
-      );
-    }
-
-    if (item is RichTextItem) {
-      return RichTextCard(item: item);
-    }
-
-    throw UnimplementedError();
-  }
-}
-
-class RichTextCard extends StatelessWidget {
-  const RichTextCard({required this.item, super.key});
-
-  final RichTextItem item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(item.title, style: const TextStyle(fontSize: 14), textAlign: TextAlign.left),
-            const SizedBox(height: 10),
-            Text(item.subtitle, style: TextStyle(fontSize: 12, color: Colors.grey)),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 10,
+            children: [
+              Text(state.title, style: const TextStyle(fontSize: 14), textAlign: TextAlign.left),
+              if (state.subtitle != null)
+                Text(state.subtitle!, style: TextStyle(fontSize: 12, color: Colors.grey)),
+            ],
+          ),
         ),
       ),
     );

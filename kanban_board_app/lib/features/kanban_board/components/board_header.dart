@@ -13,7 +13,7 @@ class BoardHeader extends StatelessWidget {
     return AppFlowyGroupHeader(
       icon: const Icon(Icons.lightbulb_circle),
       title: SizedBox(
-        width: 60,
+        width: 84,
         child: TextField(
           controller: TextEditingController()..text = data.headerData.groupName,
           onSubmitted: (val) {

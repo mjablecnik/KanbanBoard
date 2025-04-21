@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'components/board_card.dart';
 import 'components/board_footer.dart';
-import 'components/text_item.dart';
+import 'logic/card_state.dart';
 import 'extensions.dart';
 
 part 'kanban_board_page.g.dart';
@@ -49,11 +49,11 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
       id: "To Do",
       name: "To Do",
       items: [
-        TextItem("Card 1"),
-        TextItem("Card 2"),
-        RichTextItem(title: "Card 3", subtitle: 'Aug 1, 2020 4:05 PM'),
-        TextItem("Card 4"),
-        TextItem("Card 5"),
+        CardState(title: "Card 1"),
+        CardState(title: "Card 2"),
+        CardState(title: "Card 3", subtitle: 'Aug 1, 2020 4:05 PM'),
+        CardState(title: "Card 4"),
+        CardState(title: "Card 5"),
       ],
     );
 
@@ -61,9 +61,9 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
       id: "In Progress",
       name: "In Progress",
       items: <AppFlowyGroupItem>[
-        TextItem("Card 6"),
-        RichTextItem(title: "Card 7", subtitle: 'Aug 1, 2020 4:05 PM'),
-        RichTextItem(title: "Card 8", subtitle: 'Aug 1, 2020 4:05 PM'),
+        CardState(title: "Card 6"),
+        CardState(title: "Card 7", subtitle: 'Aug 1, 2020 4:05 PM'),
+        CardState(title: "Card 8", subtitle: 'Aug 1, 2020 4:05 PM'),
       ],
     );
 
@@ -71,21 +71,21 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
       id: "Pending",
       name: "Pending",
       items: <AppFlowyGroupItem>[
-        TextItem("Card 9"),
-        RichTextItem(title: "Card 10", subtitle: 'Aug 1, 2020 4:05 PM'),
-        TextItem("Card 11"),
-        TextItem("Card 12"),
+        CardState(title: "Card 9"),
+        CardState(title: "Card 10", subtitle: 'Aug 1, 2020 4:05 PM'),
+        CardState(title: "Card 11"),
+        CardState(title: "Card 12"),
       ],
     );
     final group4 = AppFlowyGroupData(
       id: "Canceled",
       name: "Canceled",
-      items: <AppFlowyGroupItem>[TextItem("Card 13"), TextItem("Card 14"), TextItem("Card 15")],
+      items: <AppFlowyGroupItem>[CardState(title: "Card 13"), CardState(title: "Card 14"), CardState(title: "Card 15")],
     );
     final group5 = AppFlowyGroupData(
       id: "Urgent",
       name: "Urgent",
-      items: <AppFlowyGroupItem>[TextItem("Card 14"), TextItem("Card 15")],
+      items: <AppFlowyGroupItem>[CardState(title: "Card 14"), CardState(title: "Card 15")],
     );
 
     controller.addGroup(group1);
@@ -97,24 +97,34 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final config = AppFlowyBoardConfig(groupBackgroundColor: HexColor.fromHex('#F7F8FC'), stretchGroupHeight: false);
+    final config = AppFlowyBoardConfig(
+      groupBackgroundColor: HexColor.fromHex('#F7F8FC'),
+      stretchGroupHeight: false,
+      groupMargin: EdgeInsets.only(right: 10, left: 10),
+    );
 
     return PageLayout(
       title: "Kanban Board",
-      child: AppFlowyBoard(
-        controller: controller,
-        cardBuilder: (context, group, groupItem) {
-          return BoardCard(groupItem: groupItem);
-        },
-        boardScrollController: boardController,
-        footerBuilder: (context, columnData) {
-          return BoardFooter(scrollController: boardController, data: columnData, themeConfig: config);
-        },
-        headerBuilder: (context, columnData) {
-          return BoardHeader(controller: controller, data: columnData, themeConfig: config);
-        },
-        groupConstraints: const BoxConstraints.tightFor(width: 240),
-        config: config,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: AppFlowyBoard(
+          controller: controller,
+          boardScrollController: boardController,
+          cardBuilder: (context, group, groupItem) {
+            return BoardCard(key: ValueKey(groupItem.id), state: groupItem as CardState);
+          },
+          footerBuilder: (context, columnData) {
+            return BoardFooter(scrollController: boardController, data: columnData, themeConfig: config);
+          },
+          headerBuilder: (context, columnData) {
+            return BoardHeader(controller: controller, data: columnData, themeConfig: config);
+          },
+          groupConstraints: BoxConstraints.tightFor(
+            width: MediaQuery.of(context).size.width / 5,
+            height: MediaQuery.of(context).size.height,
+          ),
+          config: config,
+        ),
       ),
     );
   }
