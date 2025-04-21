@@ -10,21 +10,33 @@ class BoardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppFlowyGroupHeader(
-      icon: const Icon(Icons.lightbulb_circle),
-      title: SizedBox(
-        width: 84,
-        child: TextField(
-          controller: TextEditingController()..text = data.headerData.groupName,
-          onSubmitted: (val) {
-            controller.getGroupController(data.headerData.groupId)!.updateGroupName(val);
-          },
-        ),
-      ),
-      addIcon: const Icon(Icons.add, size: 20),
-      moreIcon: const Icon(Icons.more_horiz, size: 20),
-      height: 50,
-      margin: themeConfig.groupBodyPadding,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return AppFlowyGroupHeader(
+          icon: const Icon(Icons.lightbulb_circle),
+          title: SizedBox(
+            width: constraints.maxWidth/1.9,
+            child: TextField(
+              controller: TextEditingController()..text = data.headerData.groupName,
+              onSubmitted: (val) {
+                controller.getGroupController(data.headerData.groupId)!.updateGroupName(val);
+              },
+              decoration: InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent, width: 2.0),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent, width: 2.0),
+                ),
+              ),
+            ),
+          ),
+          addIcon: const Icon(Icons.add, size: 20),
+          moreIcon: const Icon(Icons.more_horiz, size: 20),
+          height: 50,
+          margin: themeConfig.groupBodyPadding,
+        );
+      }
     );
   }
 }

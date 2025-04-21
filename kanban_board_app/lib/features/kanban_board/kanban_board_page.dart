@@ -69,17 +69,17 @@ class _KanbanBoardPageState extends State<KanbanBoardPage> {
         child: AppFlowyBoard(
           controller: controller,
           boardScrollController: boardController,
+          headerBuilder: (context, columnData) {
+            return BoardHeader(controller: controller, data: columnData, themeConfig: config);
+          },
           cardBuilder: (context, group, groupItem) {
             return BoardCard(key: ValueKey(groupItem.id), state: groupItem as CardState);
           },
           footerBuilder: (context, columnData) {
             return BoardFooter(scrollController: boardController, data: columnData, themeConfig: config);
           },
-          headerBuilder: (context, columnData) {
-            return BoardHeader(controller: controller, data: columnData, themeConfig: config);
-          },
           groupConstraints: BoxConstraints.tightFor(
-            width: MediaQuery.of(context).size.width / 5,
+            width: MediaQuery.of(context).size.width / 5 - 8,
             height: MediaQuery.of(context).size.height,
           ),
           config: config,
