@@ -18,8 +18,8 @@ class BoardHeader extends StatelessWidget {
             width: constraints.maxWidth/1.9,
             child: TextField(
               controller: TextEditingController()..text = data.headerData.groupName,
-              onSubmitted: (val) {
-                controller.getGroupController(data.headerData.groupId)!.updateGroupName(val);
+              onSubmitted: (value) {
+                controller.getGroupController(data.headerData.groupId)!.updateGroupName(value);
               },
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
