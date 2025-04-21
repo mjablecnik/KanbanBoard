@@ -1,7 +1,7 @@
-# Example vader application
+# Kanban Board
 
 ## Develop and test with Flutter version
-3.29.0
+3.29.3
 
 ## Setup FVM, Task, Mason and Flutter
   ```
